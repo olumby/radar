@@ -11,18 +11,26 @@
         <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
 
         <style type="text/css">
-            body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"; }
+            body { 
+                margin: 20px;
+                column-count: 2;
+                font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+            }
+            p {
+                margin: 0 0 10px 0;
+                padding: 10px;
+            }
         </style>
 
     </head>
     <body>
 
-        <div style="margin: 20px">
+        <div>
             @foreach ($tweets as $tweet)
-                <div style="margin-bottom: 30px;">
-                    <p style="background: #ff8787; padding: 5px;">{!! nl2br($tweet['text']) !!}</p>
+                <div style="margin-bottom: 30px; -webkit-column-break-inside: avoid;">
+                    <p style="background: #ff8787">{!! nl2br($tweet['text']) !!}</p>
                     @foreach ($tweet['parsed'] as $result)
-                        <p style="background: #ffec99; padding: 5px;">{{ $result }}</p>
+                        <p style="background: #ffec99">{{ $result }}</p>
                     @endforeach
                 </div>
             @endforeach
