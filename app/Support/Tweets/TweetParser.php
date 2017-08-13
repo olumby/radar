@@ -28,20 +28,67 @@ class TweetParser
             foreach ($matches as $match) {
                 if (strpos($this->sanitize($this->tweet->text), $match) !== false) {
                     $this->report('Matches - ' . $street);
+                    break;
                 }
             }
         }
 
+        $this->report('');
+        $this->report('');
 
-        //$this->report($this->sanitize($this->tweet->text));
+        $this->report($this->sanitize($this->tweet->text));
     }
 
     private function sanitize($str)
     {
         $str = $this->stripAccents($str);
+        $str = $this->removeLinks($str);
+        $str = $this->cleanRoadAbbriviations($str);
         $str = strtolower($str);
 
+        return trim($str);
+    }
+
+    private function cleanRoadAbbriviations($str)
+    {
+        $str = str_ireplace('a l?', '', $str);
+        $str = str_ireplace('gs.', 'germans', $str);
+        $str = str_ireplace('grl.', 'general', $str);
+
+        $str = str_ireplace('gs .', 'germans', $str);
+        $str = str_ireplace('grl .', 'general', $str);
+
+        $str = str_ireplace('gs', 'germans', $str);
+        $str = str_ireplace('grl', 'general', $str);
+
+        $str = str_ireplace('av. ', 'a.', $str);
+        $str = str_ireplace('av .', 'a.', $str);
+        $str = str_ireplace('a .', 'a.', $str);
+        $str = str_ireplace('a. ', 'a.', $str);
+        $str = str_ireplace('av.', 'a.', $str);
+
+        $str = str_ireplace('c. ', 'c.', $str);
+        $str = str_ireplace('c .', 'c.', $str);
+
+        $str = str_ireplace('m. ', 'm.', $str);
+        $str = str_ireplace('m. ', 'm.', $str);
+
+        $str = str_ireplace('gr. ', 'gr.', $str);
+        $str = str_ireplace('gr. ', 'gr.', $str);
+
+        $str = str_ireplace('avgda.', 'a.', $str);
+        $str = str_ireplace('avgda .', 'a.', $str);
+        $str = str_ireplace('avgda ', 'a.', $str);
+        $str = str_ireplace('avgda', 'a.', $str);
+
         return $str;
+    }
+
+    private function removeLinks($str)
+    {
+        $str = preg_replace('/(^|\s)@(\w+)/', '', $str);
+        $str = preg_replace('/(#\w+)/', '', $str);
+        return preg_replace('/http(s?):\/\/t.co\/[a-zA-Z0-9\-\.]+/', '', $str);
     }
 
     private function stripAccents($str)
