@@ -51,3 +51,18 @@ Route::get('tweets', function () {
 
     return $tweets->toArray();
 });
+
+
+Route::get('visual', function() {
+    $tweets = App\Tweet::get(['twitter_id', 'text', 'raw_date'])->transform(function ($tweet) {
+        $tweetParser = new App\Support\Tweets\TweetParser($tweet);
+
+        return [
+            'text' => $tweet->text,
+            'parsed' => $tweetParser->parse()
+        ];
+    });
+
+
+    return view('visual', compact('tweets'));
+});

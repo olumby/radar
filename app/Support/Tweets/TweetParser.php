@@ -23,11 +23,13 @@ class TweetParser
         $this->report('');
         $this->report('');
 
+        $results = [];
 
         foreach (config('streets.map') as $street => $matches) {
             foreach ($matches as $match) {
                 if (strpos($this->sanitize($this->tweet->text), $match) !== false) {
                     $this->report('Matches - ' . $street);
+                    $results[] = $street;
                     break;
                 }
             }
@@ -37,6 +39,8 @@ class TweetParser
         $this->report('');
 
         $this->report($this->sanitize($this->tweet->text));
+
+        return $results;
     }
 
     private function sanitize($str)
