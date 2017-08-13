@@ -42,5 +42,22 @@ return [
             'av. de los hermanos machado'
         ],
 
+        'avenida-pio-baroja' => [
+            'avenida pio baroja',
+            'av. pio baroja',
+            'av pio baroja',
+            'avgda pio baroja',
+            'avgda. pio baroja',
+            'pio baroja'
+        ],
+
+        'avenida-ausias-march' => [
+            'avenida ausias march',
+            'av. ausias march',
+            'av ausias march',
+            'avgda ausias march',
+            'avgda. ausias march',
+            'ausias march'
+        ]
     ]
 ];
