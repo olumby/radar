@@ -15,6 +15,7 @@ return [
             'camino de picanya',
             'camino picanya',
             'cami de picanya',
+            'camino picana',
             'picanya'
         ],
 
@@ -107,6 +108,46 @@ return [
             'c.en corts',
             'carrera d\' en corts',
             'carretera en corts'
+        ],
+
+        'calle-de-luis-peixo' => [
+            'l.pexio',
+            'l pexio',
+            'calle luis peixo',
+            'calle de luis peixo',
+            'luis peixo'
+        ],
+
+        'calle-blanquerias' => [
+            'calle blanqueries',
+            'blanqueries'
+        ],
+
+        'avenida-de-perez-galdos' => [
+            'perez galdos',
+            'a.perez galdos'
+        ],
+
+        'avenida-fernando-abril-martorell' => [
+            'fernando abril martorell',
+            'abril Martorell'
+        ],
+
+        'calle-guillem-castro' => [
+            'guillen castro',
+            'guillem castro'
+        ],
+
+        'calle-del-ingeniero-fausto-elio' => [
+            'fausto elio',
+            'enginyer faust elio',
+            'carrer fausto elio'
+        ],
+
+        'avenida-de-blasco-ibanez' => [
+            'blasco ibanez',
+            'a.blasco ibanez',
+            'avenida blasco ibanez'
         ]
     ]
 ];
