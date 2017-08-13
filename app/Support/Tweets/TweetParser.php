@@ -23,24 +23,15 @@ class TweetParser
         $this->report('');
         $this->report('');
 
-        $results = [];
+        $results = collect(config('streets.map'))->transform(function ($strings, $street) {
+            return collect($strings)->first(function ($string) {
+                return (strpos($this->sanitize($this->tweet->text), $string) !== false);
+            });
+        })->filter()->keys();
 
-        foreach (config('streets.map') as $street => $matches) {
-            foreach ($matches as $match) {
-                if (strpos($this->sanitize($this->tweet->text), $match) !== false) {
-                    $this->report('Matches - ' . $street);
-                    $results[] = $street;
-                    break;
-                }
-            }
-        }
+        $this->report(implode(', ', $results->toArray()));
 
-        $this->report('');
-        $this->report('');
-
-        $this->report($this->sanitize($this->tweet->text));
-
-        return $results;
+        return $results->toArray();
     }
 
     private function sanitize($str)
