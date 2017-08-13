@@ -11,52 +11,43 @@
 |
 */
 
-Route::get('/', function () {
-
-
+Route::get('/store/latest', function () {
     try {
-        //$response = Twitter::getUserTimeline(['screen_name' => 'policialocalvlc', 'count' => 20, 'format' => 'array']);
-        $response = Twitter::getSearch(['q' => '#radarPLV', 'from' => 'policialocalvlc', 'result_type' => 'recent', 'count' => '20', 'since_id' => '865094259761967104']);
+        $response = Twitter::getSearch(['q' => '#radarPLV', 'from' => 'policialocalvlc', 'result_type' => 'recent', 'count' => '20', 'tweet_mode' => 'extended']);
     } catch (Exception $e) {
-        // dd(Twitter::error());
         dd(Twitter::logs());
     }
 
-    foreach ($response->statuses as $status) {
-        App\Tweet::create([
+    $tweets = collect($response->statuses)->transform(function ($status) {
+        return App\Tweet::create([
             'twitter_id' => $status->id_str,
-            'text' => $status->text,
+            'text' => $status->full_text,
             'raw_date' => $status->created_at
         ]);
-    }
+    });
 
-    dd($response);
+    return $tweets;
 });
 
-Route::get('/tweet/{id}', function ($id) {
-
+Route::get('/store/tweet/{id}', function ($id) {
     try {
-        $response = Twitter::getTweet($id);
+        $response = Twitter::getTweet($id, ['tweet_mode' => 'extended']);
     } catch (Exception $e) {
         dd(Twitter::logs());
     }
 
     $tweet = App\Tweet::create([
         'twitter_id' => $response->id_str,
-        'text' => $response->text,
+        'text' => $response->full_text,
         'raw_date' => $response->created_at
     ]);
 
     return $tweet;
-
 });
 
 
 Route::get('tweets', function () {
-
     $tweets = App\Tweet::get(['twitter_id', 'text', 'raw_date']);
 
     return $tweets->toArray();
-
-
 });
