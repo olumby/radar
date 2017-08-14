@@ -17,7 +17,7 @@ class CreateTweetsTable extends Migration
             $table->increments('id');
             $table->string('twitter_id')->unique();
             $table->string('text');
-            $table->string('raw_date');
+            $table->dateTime('date');
             $table->timestamps();
         });
     }

@@ -22,7 +22,7 @@ Route::get('/store/latest', function () {
         return App\Tweet::create([
             'twitter_id' => $status->id_str,
             'text' => $status->full_text,
-            'raw_date' => $status->created_at
+            'date' => Carbon\Carbon::parse($status->created_at)->format("Y-m-d H:i:s")
         ]);
     });
 
@@ -39,7 +39,7 @@ Route::get('/store/tweet/{id}', function ($id) {
     $tweet = App\Tweet::create([
         'twitter_id' => $response->id_str,
         'text' => $response->full_text,
-        'raw_date' => $response->created_at
+        'date' => Carbon\Carbon::parse($response->created_at)->format("Y-m-d H:i:s")
     ]);
 
     return $tweet;
@@ -47,14 +47,14 @@ Route::get('/store/tweet/{id}', function ($id) {
 
 
 Route::get('tweets', function () {
-    $tweets = App\Tweet::get(['twitter_id', 'text', 'raw_date']);
+    $tweets = App\Tweet::get(['twitter_id', 'text', 'date']);
 
     return $tweets->toArray();
 });
 
 
 Route::get('visual', function() {
-    $tweets = App\Tweet::get(['twitter_id', 'text', 'raw_date'])->transform(function ($tweet) {
+    $tweets = App\Tweet::get(['twitter_id', 'text', 'date'])->transform(function ($tweet) {
         $tweetParser = new App\Support\Tweets\TweetParser($tweet);
 
         return [
