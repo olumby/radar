@@ -16,7 +16,7 @@ class CreateActivityTable extends Migration
         Schema::create('activity', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('tweet_count');
-            $table->string('latest_id');
+            $table->string('latest_id')->nullable();
             $table->string('mode');
             $table->timestamps();
         });

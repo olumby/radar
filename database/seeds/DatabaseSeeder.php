@@ -29,5 +29,11 @@ class DatabaseSeeder extends Seeder
                 'date' => Carbon::parse($response->created_at)->format('Y-m-d H:i:s')
             ]);
         });
+
+        App\Activity::create([
+            'tweet_count' => $tweets->count(),
+            'latest_id' => $tweets->last(),
+            'mode' => 'seed'
+        ]);
     }
 }
