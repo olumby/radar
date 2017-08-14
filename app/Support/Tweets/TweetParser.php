@@ -18,10 +18,7 @@ class TweetParser
 
     public function parse()
     {
-        $this->report('Parsing tweet:', 'comment');
-        $this->report($this->tweet->text);
-        $this->report('');
-        $this->report('');
+        $this->report('Parsing..', 'comment');
 
         $results = collect(config('streets.map'))->transform(function ($strings, $street) {
             return collect($strings)->first(function ($string) {
@@ -29,7 +26,7 @@ class TweetParser
             });
         })->filter()->keys();
 
-        $this->report(implode(', ', $results->toArray()));
+        $this->report('Found ' . $results->count() . ' streets in tweet "' . $this->tweet->twitter_id . '".');
 
         return $results->toArray();
     }
