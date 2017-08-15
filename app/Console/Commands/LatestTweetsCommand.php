@@ -41,9 +41,20 @@ class LatestTweetsCommand extends Command
     {
         $latest = Activity::latest()->first();
 
-        // If latest..
+        $params = [
+            'q' => '#radarPLV',
+            'from' => 'policialocalvlc',
+            'result_type' => 'recent',
+            'count' => '20',
+            'tweet_mode' => 'extended'
+        ];
+
+        if ($latest) {
+            $params['since_id'] = $latest->latest_id;
+        }
+
         try {
-            $response = Twitter::getSearch(['q' => '#radarPLV', 'from' => 'policialocalvlc', 'result_type' => 'recent', 'count' => '20', 'tweet_mode' => 'extended']);
+            $response = Twitter::getSearch($params);
         } catch (Exception $e) {
             dd(Twitter::logs());
         }
