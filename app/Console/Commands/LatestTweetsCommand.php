@@ -3,6 +3,9 @@
 namespace App\Console\Commands;
 
 use App\Activity;
+use App\Support\Tweets\TweetParser;
+use App\Tweet;
+use Carbon\Carbon;
 use Illuminate\Console\Command;
 use Thujohn\Twitter\Facades\Twitter;
 
@@ -39,6 +42,7 @@ class LatestTweetsCommand extends Command
      */
     public function handle()
     {
+        $this->comment('Fetching latest tweets..');
         $latest = Activity::latest()->first();
 
         $params = [
@@ -51,6 +55,7 @@ class LatestTweetsCommand extends Command
 
         if ($latest) {
             $params['since_id'] = $latest->latest_id;
+            $this->comment('Using "' . $latest->latest_id . '" as "since_id".');
         }
 
         try {
@@ -59,6 +64,27 @@ class LatestTweetsCommand extends Command
             dd(Twitter::logs());
         }
 
-        dd(count($response->statuses));
+        $this->comment('Found ' . count($response->statuses) . ' tweets..');
+
+        $tweets = collect($response->statuses)->transform(function ($status) {
+            $tweet = Tweet::create([
+                'twitter_id' => $status->id_str,
+                'text' => $status->full_text,
+                'date' => Carbon::parse($status->created_at)->format('Y-m-d H:i:s')
+            ]);
+
+            $tweetParser = new TweetParser($tweet);
+            $tweetParser->setCommand($this)->parse();
+
+            return $tweet->twitter_id;
+        });
+
+        Activity::create([
+            'tweet_count' => $tweets->count(),
+            'latest_id' => $tweets->last(),
+            'mode' => $this->argument('mode')
+        ]);
+
+        $this->info('Finished');
     }
 }

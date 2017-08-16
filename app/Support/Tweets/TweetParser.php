@@ -28,6 +28,9 @@ class TweetParser
 
         $this->report('Found ' . $results->count() . ' streets in tweet "' . $this->tweet->twitter_id . '".');
 
+        $this->tweet->processed = true;
+        $this->tweet->save();
+
         return $results->toArray();
     }
 
