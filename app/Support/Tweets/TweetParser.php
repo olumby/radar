@@ -2,8 +2,9 @@
 
 namespace App\Support\Tweets;
 
-use App\Tweet;
+use App\Street;
 use App\Support\Traits\CommandTrait;
+use App\Tweet;
 
 class TweetParser
 {
@@ -27,6 +28,10 @@ class TweetParser
         })->filter()->keys();
 
         $this->report('Found ' . $results->count() . ' streets in tweet "' . $this->tweet->twitter_id . '".');
+
+        $results->each(function ($slug) {
+            $this->tweet->streets()->save(Street::where('slug', $slug)->first(), ['date' => $this->tweet->date]);
+        });
 
         $this->tweet->processed = true;
         $this->tweet->save();

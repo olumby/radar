@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTweetStreetTable extends Migration
+class CreateStreetTweetTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,11 @@ class CreateTweetStreetTable extends Migration
      */
     public function up()
     {
-        Schema::create('tweet_street', function (Blueprint $table) {
+        Schema::create('street_tweet', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('tweet_id')->unsigned();
             $table->integer('street_id')->unsigned();
-            $table->date('date');
+            $table->dateTime('date');
             $table->string('match')->nullable();
             $table->string('note')->nullable();
             $table->timestamps();
@@ -34,6 +34,6 @@ class CreateTweetStreetTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tweet_street');
+        Schema::dropIfExists('street_tweet');
     }
 }

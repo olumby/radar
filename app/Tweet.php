@@ -27,4 +27,12 @@ class Tweet extends Model
         'created_at',
         'updated_at'
     ];
+
+    /**
+     * Get the streets parsed from the tweet.
+     */
+    public function streets()
+    {
+        return $this->belongsToMany('App\Street');
+    }
 }
