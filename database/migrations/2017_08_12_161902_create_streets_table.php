@@ -15,10 +15,11 @@ class CreateStreetsTable extends Migration
     {
         Schema::create('streets', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('slug')->unique();
             $table->string('name');
-            $table->string('zone');
-            $table->string('point');
-            $table->string('path');
+            $table->string('zone')->nullable();
+            $table->string('point')->nullable();
+            $table->string('path')->nullable();
             $table->timestamps();
         });
     }
