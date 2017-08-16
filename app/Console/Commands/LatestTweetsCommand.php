@@ -43,7 +43,7 @@ class LatestTweetsCommand extends Command
     public function handle()
     {
         $this->comment('Fetching latest tweets..');
-        $latest = Activity::latest()->first();
+        $latest = Activity::whereNotNull('latest_id')->latest()->first();
 
         $params = [
             'q' => '#radarPLV',
@@ -66,18 +66,22 @@ class LatestTweetsCommand extends Command
 
         $this->comment('Found ' . count($response->statuses) . ' tweets..');
 
-        $tweets = collect($response->statuses)->transform(function ($status) {
-            $tweet = Tweet::create([
-                'twitter_id' => $status->id_str,
-                'text' => $status->full_text,
-                'date' => Carbon::parse($status->created_at)->format('Y-m-d H:i:s')
-            ]);
+        $tweets = collect($response->statuses)->reverse()->transform(function ($status) {
+            if (Tweet::where('twitter_id', $status->id_str)->count() == 0) {
+                $tweet = Tweet::create([
+                    'twitter_id' => $status->id_str,
+                    'text' => $status->full_text,
+                    'date' => Carbon::parse($status->created_at)->format('Y-m-d H:i:s')
+                ]);
 
-            $tweetParser = new TweetParser($tweet);
-            $tweetParser->setCommand($this)->parse();
+                $tweetParser = new TweetParser($tweet);
+                $tweetParser->setCommand($this)->parse();
 
-            return $tweet->twitter_id;
-        });
+                return $tweet->twitter_id;
+            }
+
+            return null;
+        })->filter();
 
         Activity::create([
             'tweet_count' => $tweets->count(),
