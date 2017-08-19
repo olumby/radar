@@ -21,6 +21,7 @@ Object.defineProperty(Vue.prototype, '$axios', { value: axios });
 
 // Vue Components
 Vue.component('radar-map', require('./components/Map.vue').default);
+Vue.component('dev-map', require('./components/DevMap.vue').default);
 
 const app = new Vue({
     el: '#app'

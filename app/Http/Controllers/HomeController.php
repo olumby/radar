@@ -11,6 +11,8 @@ class HomeController extends Controller
     {
         $tweets = Tweet::with('streets')->orderBy('date', 'DESC')->get();
 
-        return view('home', compact('tweets'));
+        $streets = \App\Street::all();
+
+        return view('home', compact('tweets', 'streets'));
     }
 }
