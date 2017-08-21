@@ -18,7 +18,7 @@ class CreateStreetsTable extends Migration
             $table->string('slug')->unique();
             $table->string('name');
             $table->string('zone')->nullable();
-            $table->string('point')->nullable();
+            $table->json('point')->nullable();
             $table->string('path')->nullable();
             $table->timestamps();
         });

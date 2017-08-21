@@ -2,11 +2,17 @@
     var L = require('leaflet');
 
     export default {
+
+        props: {
+            dataStreets: Array,
+        },
+
         data () {
             return {
-                streets: [],
+                streets: {},
+                streetPoints: {},
                 activeStreet: "",
-                settingPath: false,
+                settingPoint: false,
                 map: Object,
                 radarIcon: L.icon({
                     iconUrl: '/radar.svg',
@@ -27,25 +33,33 @@
                 attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>, &copy; <a href="https://carto.com/attribution">CARTO</a>'
             }).addTo(this.map);
 
-            L.marker([39.49933027726959, -0.3754534386098385], {icon: this.radarIcon}).addTo(this.map);
+            // L.marker([39.49933027726959, -0.3754534386098385], {icon: this.radarIcon}).addTo(this.map);
+
+            _.each(this.dataStreets, function(street) {
+                L.marker(street.point, {icon: this.radarIcon}).addTo(this.map);
+            }.bind(this));
 
             this.map.on("click", this.readPos);
-
         },
 
         methods: {
-            setPath: function(street) {
+            setPoint: function(street) {
                 this.activeStreet = street;
-                this.settingPath = true;
+                this.settingPoint = true;
             },
 
-            getPath: function(street) {
-
+            getPoints: function() {
+                console.log(JSON.stringify(this.streets));
             },
 
             readPos: function(e) {
-                console.log(e.latlng.lat, e.latlng.lng);
-                L.circle([e.latlng.lat, e.latlng.lng], 200).addTo(this.map);
+                if (this.activeStreet != "" && this.settingPoint) {
+                    if (this.streetPoints[this.activeStreet]) {
+                        this.map.removeLayer(this.streetPoints[this.activeStreet]);
+                    }
+                    this.streetPoints[this.activeStreet] = L.circle([e.latlng.lat, e.latlng.lng], 20).addTo(this.map);
+                    this.$set(this.streets, this.activeStreet, [parseFloat((e.latlng.lat).toFixed(7)), parseFloat((e.latlng.lng).toFixed(6))])
+                }
             }
         }
 

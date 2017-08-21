@@ -15,4 +15,13 @@ class HomeController extends Controller
 
         return view('home', compact('tweets', 'streets'));
     }
+
+    public function dev()
+    {
+        $tweets = Tweet::with('streets')->orderBy('date', 'DESC')->get();
+
+        $streets = \App\Street::all();
+
+        return view('dev', compact('tweets', 'streets'));
+    }
 }
