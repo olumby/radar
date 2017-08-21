@@ -17,7 +17,7 @@
 
         <div id="app" v-cloak>
 
-            <dev-map inline-template :data-streets="{{ json_encode($streets) }}">
+            <dev-map inline-template :data-streets="{{ json_encode($tweets->first()->streets) }}">
                 <div style="width: 95%; margin: 0 auto; display: flex;">
 
                     <div style="width: 50%; padding: 10px; box-sizing: border-box">
