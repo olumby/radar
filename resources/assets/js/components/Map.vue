@@ -2,8 +2,11 @@
     <div>
         <div class="grid">
             <div class="map">
-                <div v-if="activeTweet" class="mt-05 mb-05 ml-05 fill-darker rounded p-05" :class="{ 'fill-red color-light': activeTweetToday }">
-                    <p class="mt-05 mb-05 text-medium"><span v-text="parseDate(activeTweet.date)"></span> <span v-if="activeTweetToday" class="color-faded">(hoy)</span></p>
+                <div v-if="activeTweet" class="mt-05 mb-05 ml-05 fill-darker rounded p-05" :class="{ 'fill-red color-lighter': activeTweetToday }">
+                    <p class="mt-05 mb-05 text-medium">
+                        <span v-if="activeTweetToday">Hoy, </span>
+                        <span v-text="parseDate(activeTweet.date)"></span>
+                    </p>
                     <p class="mt-05 mb-05 text-small"><span v-html="parseTweet(activeTweet.text)"></span></p>
                 </div>
                 <div id="map" class="mb-05 ml-05 rounded"></div>
@@ -11,7 +14,7 @@
 
             <div class="tweet-list">
                 <div v-for="tweet in tweets.data" @click="selectTweet(tweet)" style="cursor: pointer" class="fill-darker rounded m-05 p-1">
-                    <span><span v-text="parseDate(tweet.date)" class="text-medium"></span> <small class="text-small color-orange">({{ tweet.streets.length }} sitios)</small></span>
+                    <span><span v-text="parseDate(tweet.date)" class="text-medium"></span> <small class="text-small color-orange">({{ tweet.streets.length }} {{ pluralise(tweet.streets.length, 'localización', 'localizaciónes') }})</small></span>
                     <div v-if="activeTweet == tweet">
                         <p v-html="parseTweet(tweet.text)" class="text-small text-italic color-faded"></p>
                         <div class="p-05">
@@ -106,8 +109,8 @@
                 }.bind(this));
 
                 this.map.fitBounds(L.featureGroup(this.markers).getBounds(), {
-                    padding: [10, 10],
-                    maxZoom: 15
+                    padding: [50, 50],
+                    maxZoom: 14
                 });
             },
 
@@ -119,6 +122,14 @@
                 text = text.replace(/#(\S*)/g,'<a class="tweet-hashtag" href="http://twitter.com/#!/search/$1">#$1</a>');
                 text = text.replace(/@(\S*)/g,'<a class="tweet-mention" href="http://twitter.com/$1">@$1</a>');
                 return text.replace(/(^|&lt;|\s)(((https?|ftp):\/\/|mailto:).+?)(\s|&gt;|$)/g, '$1<a class="tweet-link" target="_blank"  href="$2">$2</a>$5');
+            },
+
+            pluralise: function(count, singular, plural) {
+                if (count == 1) {
+                    return singular;
+                }
+
+                return plural;
             }
         }
 

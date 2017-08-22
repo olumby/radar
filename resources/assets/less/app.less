@@ -20,23 +20,27 @@ body {
 }
 
 .fill-red {
-    background: #c92a2a;
+    background: @oc-red-9;
 }
 
 .color-light {
-    color: #f8f9fa;
+    color: @oc-gray-2;
+}
+
+.color-lighter {
+    color: @oc-gray-0;
 }
 
 .color-faded {
-    color: #adb5bd;
+    color: @oc-gray-5;
 }
 
 .color-orange {
-    color: #ffd8a8;
+    color: @oc-orange-2;
 }
 
 .color-blue {
-    color: #ccedff;
+    color: @oc-blue-1;
 }
 
 .p-05 {
@@ -99,9 +103,9 @@ body {
     flex-grow: 1;
     height: 100vh;
     min-width: 100px;
-
     #map {
         flex-grow: 1;
+        z-index: 0;
     }
 }
 
@@ -136,13 +140,13 @@ body {
 }
 
 .tweet-link {
-    color: #d3f9d8;
+    color: @oc-green-1;
 }
 
 .tweet-hashtag {
-    color: #ffec99;
+    color: @oc-yellow-2;
 }
 
 .tweet-mention {
-    color: #d0bfff;
+    color: @oc-violet-2;
 }
