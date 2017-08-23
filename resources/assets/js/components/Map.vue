@@ -12,7 +12,7 @@
                 <div id="map" class="mb-05 ml-05 rounded"></div>
             </div>
 
-            <div class="tweet-list">
+            <div v-if="tweets" class="tweet-list">
                 <div v-for="tweet in tweets.data" @click="selectTweet(tweet)" style="cursor: pointer" class="fill-darker rounded m-05 p-1">
                     <span><span v-text="parseDate(tweet.date)" class="text-medium"></span> <small class="text-small color-orange">({{ tweet.streets.length }} {{ pluralise(tweet.streets.length, 'localización', 'localizaciónes') }})</small></span>
                     <div v-if="activeTweet == tweet">
@@ -24,6 +24,16 @@
                         </div>
                     </div>
                 </div>
+
+                <div class="page-status text-small mt-1">
+                    {{ tweetDateRange }}
+                </div>
+
+                <div class="pagination p-1 text-small">
+                    <button class="prev button" @click="fetchTweets(tweets.next_page_url)" :disabled="tweets.next_page_url ? false : true">más antiguas</button>
+                    <button class="next button" @click="fetchTweets(tweets.prev_page_url)" :disabled="tweets.prev_page_url ? false : true">más recientes</button>
+                </div>
+
             </div>
         </div>
     </div>
@@ -79,13 +89,18 @@
                     return true;
                 }
 
-                return false;
+                return false;x
+            },
+            tweetDateRange: function() {
+                if (this.tweets.data && _.first(this.tweets.data) && _.last(this.tweets.data)) {
+                    return this.parseDateShort(_.last(this.tweets.data).date) + " - " + this.parseDateShort(_.first(this.tweets.data).date)
+                }
             }
         },
 
         methods: {
-            fetchTweets: function() {
-                this.$axios.get('/tweets').then(function (response) {
+            fetchTweets: function(page = '') {
+                this.$axios.get('/tweets' + page).then(function (response) {
                     this.tweets = response.data;
                     if (this.tweets.data[0]) {
                         this.selectTweet(this.tweets.data[0]);
@@ -116,6 +131,10 @@
 
             parseDate: function(date) {
                 return this.$moment(date).locale('es').format('dddd DD MMMM YYYY');
+            },
+
+            parseDateShort: function(date) {
+                return this.$moment(date).locale('es').format('DD/MM/YYYY');
             },
 
             parseTweet: function(text) {

@@ -11,6 +11,8 @@ class TweetController extends Controller
     {
         $tweets = Tweet::with('streets')->orderBy('date', 'DESC')->paginate(14);
 
+        $tweets->setPath('');
+
         return $tweets->toArray();
     }
 
