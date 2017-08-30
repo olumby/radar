@@ -119,6 +119,9 @@ body {
     flex-shrink: 0;
     height: 100vh;
     overflow-y: scroll;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
 }
 
 .street-list {
@@ -136,6 +139,21 @@ body {
             margin-right: 0.4rem;
             content: '- ';
         }
+    }
+}
+
+.tweet-list .credits {
+    margin: 0.5rem auto;
+    text-align: center;
+    p {
+        margin: 0.3rem 0;
+    }
+    a {
+        color: @oc-gray-6;
+        text-decoration: none;
+    }
+    svg {
+        fill: @oc-gray-6;
     }
 }
 

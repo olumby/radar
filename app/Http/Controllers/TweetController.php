@@ -9,7 +9,7 @@ class TweetController extends Controller
 {
     public function index()
     {
-        $tweets = Tweet::with('streets')->orderBy('date', 'DESC')->paginate(14);
+        $tweets = Tweet::with('streets')->orderBy('date', 'DESC')->paginate(10);
 
         $tweets->setPath('');
 
