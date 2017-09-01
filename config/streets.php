@@ -7,7 +7,8 @@ return [
         'avenida-del-cid' => [
             'a.cid',
             'avenida del cid',
-            'avenida cid'
+            'avenida cid',
+            'cid'
         ],
 
         'camino-de-picanya' => [
