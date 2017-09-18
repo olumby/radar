@@ -7,16 +7,17 @@
 
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        <title>RadarVLC</title>
+        <title>Admin | RadarVLC</title>
 
         <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     </head>
     <body>
 
         <div id="app" v-cloak>
-            <radar-map></radar-map>
+            <div id="admin">
+                @yield('content')
+            </div>
         </div>
-
 
         <script type="text/javascript" src="{{ asset('js/app.js' )}}"></script>
     </body>

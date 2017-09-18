@@ -1,10 +1,12 @@
 @import "normalize";
 @import "open-color";
 @import "../../../node_modules/leaflet/dist/leaflet.css";
+@import url('https://rsms.me/interface/interface.css');
+
 
 body {
     background: @oc-gray-9;
-    font-family: 'Raleway', sans-serif;
+    font-family: Interface, sans-serif;
     color: @oc-gray-3;
     letter-spacing: 0.02rem;
 }
@@ -88,7 +90,7 @@ body {
 // --
 
 .text-medium {
-    font-weight: 600;
+    font-weight: 500;
 }
 
 .text-small {
@@ -189,7 +191,9 @@ body {
     justify-content: center;
 }
 
-.pagination .button {
+/* Button */
+
+.button {
     margin: 0 1rem;
     padding: 0.1rem 1rem;
     line-height: 1.5rem;
@@ -201,8 +205,38 @@ body {
     cursor: pointer;
 }
 
-.pagination .button:disabled {
+.button:disabled {
     background: @oc-gray-8;
     color: @oc-gray-6;
     cursor: default;
+}
+
+.button-red {
+    background: @oc-red-9;
+    color: @oc-gray-0;
+}
+
+/* Admin */
+
+#admin .admin-grid {
+    width: 60%;
+    margin: 0 auto;
+}
+
+#admin .admin-tweets {
+    display: flex;
+
+    .tweet-content {
+        flex-grow: 1;
+        flex-shrink: 1;
+    }
+    .admin-actions {
+        text-align: right;
+        width: 300px;
+        flex-grow: 0;
+        flex-shrink: 0;
+        .button {
+            margin-bottom: 0.5rem;
+        }
+    }
 }
