@@ -14,8 +14,8 @@
                         <p class="text-small text-italic color-faded">{!! nl2br($tweet->text) !!}</p>
                     </div>
                     <div class="admin-actions text-small">
-                        <button class="button button-red">Repharse Tweet</button>
-                        <button class="button button-red">Exclude Tweet</button>
+                        <a class="button button-red" href="{{ route('admin.reparse', $tweet) }}">Repharse Tweet</a>
+                        <a class="button button-red">Exclude Tweet</a>
                     </div>
                 </div>
                 <div class="pl-05 pr-05 pt-05">

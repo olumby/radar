@@ -7,7 +7,8 @@ $router->get('dev', 'HomeController@dev');
 $router->get('tweets', 'TweetController@index');
 $router->get('tweet/{tweet}', 'TweetController@show');
 
-$router->get('admin', 'AdminController@index');
+$router->get('admin', 'AdminController@index')->name('admin');
+$router->get('admin/reparse/{tweet}', 'AdminController@reparse')->name('admin.reparse');
 
 
 $router->get('tests', function () {

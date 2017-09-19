@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Support\Tweets\TweetReparser;
 use App\Tweet;
 use Illuminate\Http\Request;
 
@@ -20,5 +21,15 @@ class AdminController extends Controller
         });
 
         return view('admin.index', compact('tweets'));
+    }
+
+    public function reparse(Tweet $tweet)
+    {
+
+        (new TweetReparser($tweet))->reparse();
+
+        // return $tweet->streets;
+
+        return redirect(route('admin'));
     }
 }
