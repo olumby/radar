@@ -16,8 +16,12 @@ return [
             'camino de picanya',
             'camino picanya',
             'cami de picanya',
+            'picanya',
+            'cami picana',
+            'camino de picana',
             'camino picana',
-            'picanya'
+            'cami de picana',
+            'picana',
         ],
 
         'avenida-de-los-hermanos-maristas' => [
@@ -38,7 +42,10 @@ return [
             'hermanos machado',
             'a.de los germans machado',
             'a.de los hermanos machado',
-            'antonio machado'
+            'antonio machado',
+            'hs machado',
+            'hs.machado',
+            'hs. machado'
         ],
 
         'avenida-pio-baroja' => [
@@ -67,7 +74,9 @@ return [
             'a.manuel falla',
             'a.manuel de falla',
             'manuel falla',
-            'm.falla'
+            'm.falla',
+            'm de falla',
+            'm.de falla'
         ],
 
         'avenida-del-general-aviles' => [
@@ -75,7 +84,9 @@ return [
             'a.general aviles',
             'general aviles',
             'g.aviles',
-            'gr.aviles'
+            'gr.aviles',
+            'gral.aviles',
+            'gral aviles'
         ],
 
         'paseo-de-la-pechina' => [
@@ -87,12 +98,15 @@ return [
 
         'antonio-ferrandis' => [
             'a.ferrandis',
+            'a ferrandis',
             'antonio ferrandis',
             'a.antonio ferrandis'
         ],
 
         'avenida-dels-tarongers' => [
             'tarongers',
+            'naranjos',
+            'a.naranjos',
             'a.tarongers',
             'avenida dels tarongers'
         ],
@@ -100,6 +114,7 @@ return [
         'avenida-de-las-tres-cruces' => [
             'avenguda de les tres creus',
             'tres creus',
+            'tres cruces',
             'avenida de las tres cruces',
             'a.tres cruces',
             'a.tres creus'
