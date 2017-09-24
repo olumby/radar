@@ -28,7 +28,7 @@ class Kernel extends ConsoleKernel
     {
         $schedule->command(LatestTweetsCommand::class)
                  ->hourly()
-                 ->unlessBetween('20:00', '6:00');
+                 ->between('6:00', '22:00');
     }
 
     /**
