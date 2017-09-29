@@ -14,7 +14,8 @@
         'envs'              => [
             'local',
             'development',
-            'testing'
+            'testing',
+            'production'
         ],
 
         // Message to display if the user "opts out"/clicks "cancel"
