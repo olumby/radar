@@ -56,6 +56,7 @@ return [
 
         'avenida-ausias-march' => [
             'avenida ausias march',
+            'march',
             'a.ausias march',
             'ausias march',
             'a.march'
@@ -64,6 +65,7 @@ return [
         'avenida-del-mestre-rodrigo' => [
             'mestre rodrigo',
             'avenida del mestre rodrigo',
+            'rodrigo',
             'a.mestre rodrigo',
             'm.rodrigo'
         ],
