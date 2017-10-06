@@ -45,7 +45,10 @@ return [
             'antonio machado',
             'hs machado',
             'hs.machado',
-            'hs. machado'
+            'hs. machado',
+            'gs.machado',
+            'gs. machado',
+            'gs machado'
         ],
 
         'avenida-pio-baroja' => [
