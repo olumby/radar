@@ -39,16 +39,14 @@ return [
             'a.germans machado',
             'a.hermanos machado',
             'germans machado',
+            'germansmachado',
             'hermanos machado',
             'a.de los germans machado',
             'a.de los hermanos machado',
             'antonio machado',
             'hs machado',
             'hs.machado',
-            'hs. machado',
-            'gs.machado',
-            'gs. machado',
-            'gs machado'
+            'hs. machado'
         ],
 
         'avenida-pio-baroja' => [
